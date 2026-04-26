@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OOP Midterm Portfolio</title> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> <style>
+    :root{
+      --bg:#fef6f9;
+      --card:#fff;
+      --accent:#ffd6e0;
+      --text:#444;
+      --soft:#f9f9f9;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    header{
+      text-align:center;
+      padding:35px 15px 10px;
+    }
+
+    header h1{
+      margin:0;
+      font-size:26px;
+      font-weight:600;
+    }
+
+    header p{
+      margin:5px 0 0;
+      font-size:14px;
+      opacity:.7;
+    }
+
+    .top-actions{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:10px 14px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      background:#fff;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+      font-family:'Poppins',sans-serif;
+      font-size:13px;
+    }
+
+    .btn:hover{
+      border:2px solid var(--accent);
+    }
+
+    .container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:15px;
+      padding:20px;
+      max-width:700px;
+      margin:auto;
+    }
+
+    .card{
+      background:var(--card);
+      padding:18px;
+      border-radius:18px;
+      text-align:center;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+      transition:.2s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border:2px solid var(--accent);
+    }
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      justify-content:center;
+      align-items:center;
+      padding:10px;
+      z-index:1000;
+    }
+
+    .modal-content{
+      background:#fff;
+      padding:20px;
+      border-radius:18px;
+      width:100%;
+      max-width:520px;
+      max-height:90vh;
+      overflow-y:auto;
+    }
+
+    .close{float:right;cursor:pointer;font-weight:bold;}
+
+    .item{
+      background:var(--soft);
+      padding:12px;
+      margin:10px 0;
+      border-radius:12px;
+      cursor:pointer;
+    }
+
+    .img-box img{
+      width:100%;
+      border-radius:12px;
+      margin-top:8px;
+      cursor:pointer;
+    }
+
+    .reflection{
+      margin-top:12px;
+      padding:12px;
+      background:#fff7fa;
+      border-left:4px solid var(--accent);
+      border-radius:10px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .back{margin-top:10px;display:inline-block;cursor:pointer;opacity:.7;}
+
+    .sub-title{margin-top:10px;font-weight:600;}
+
+    .img-modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.85);
+      justify-content:center;
+      align-items:center;
+      z-index:2000;
+    }
+
+    .img-modal img{
+      max-width:90%;
+      max-height:90%;
+      border-radius:10px;
+    }
+
+  </style></head>
+<body><header>
+  <h1>OOP Midterm Portfolio</h1>
+  <p>Object-Oriented Programming E-Portfolio</p>  <div class="top-actions">
+    <button class="btn" onclick="openAbout()">About This Portfolio</button>
+  </div>
+</header><div class="container">
+  <div class="card" onclick="openCategory('quiz')">Quiz</div>
+  <div class="card" onclick="openCategory('assignment')">Assignments</div>
+  <div class="card" onclick="openCategory('seatwork')">Seatwork</div>
+  <div class="card" onclick="openCategory('activity')">Activity</div>
+</div><div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <div id="modalBody"></div>
+  </div>
+</div><div id="imgModal" class="img-modal" onclick="closeImg()">
+  <img id="imgPreview">
+</div><script>
+
+const aboutText = `
+<b>Full Name:</b> Angel Jamil P. Prestosa<br>
+<b>Course:</b> Object-Oriented Programming<br>
+<b>School/Section:</b> Polytechnic University of the Philippines - BSIT 2-3
+<br><br>
+<b>Introduction:</b><br>
+This e-portfolio presents my Midterm Project in Object-Oriented Programming using HTML. It includes quizzes, activities, and assignments that demonstrate my understanding of OOP concepts. Additionally, this site reflects my learning progress, understanding, and reflections throughout the first half of the course.
+`;
+
+function openAbout(){
+  document.getElementById('modalBody').innerHTML = `
+    <h3>About This Portfolio</h3>
+    <p>${aboutText}</p>
+  `;
+  document.getElementById('modal').style.display='flex';
+}
+
+const data = {
+
+  quiz:[
+    { title:"Quiz 1", images:["images/quiz1.jpg"], reflection:"I got 34/45 on this quiz, which is not that high, but I still believe I understand the basic logic of Java. It showed me which parts I need to improve, especially in analyzing problems more carefully. Overall, it helped me become more aware of my strengths and weaknesses." }
+  ],
+
+  assignment:[
+    { title:"About Me", images:["images/assignment1.jpg"], reflection:"The “All About Me” activity was just a fun and light exercise where I got to share a bit about myself, like my details, three words that describe me, my impression of my teacher, and my expectations for OOP. It wasn’t too deep, but it helped me think a little about how I see myself and what I’m looking forward to in the subject. Overall, it was a chill way to start and get comfortable." },
+    { title:"Introduction to Java", images:["images/assignment2_1.jpg","images/assignment2_2.jpg"], reflection:"This activity helped me understand what happens behind the code, especially how Java runs through the JVM and JRE. It made me appreciate the language more because I now know it’s not just about writing code, but also how it is executed and managed by the system." }
+  ],
+
+  seatwork:[
+    { title:"Bitwise", reflection:"This seatwork helped me understand the difference between operators like & and &&, and how increment and decrement work in different situations. It also trained me to compute expressions step-by-step and be more careful with how values change." },
+    { title:"Smart Wallet System", images:["images/s2.jpg","images/s2_1.jpg"], reflection:"This activity helped me practice building a more complete program using loops, conditions, and user input. It showed me how real systems handle transactions and validations. I also learned the importance of setting limits and checking conditions to avoid errors." },
+    { title:"Student Age Analyzer", images:["images/s3_1.jpg","images/s3_2.jpg"], reflection:"This seatwork helped me understand how to use methods and conditions to categorize data. Writing the code by hand also made me more mindful of syntax and structure. It improved my understanding of how programs are organized and how logic flows step-by-step." }
+  ],
+
+  activity:[
+
+  {
+    title:"Variables",
+    images:["images/act1.jpg"],
+    reflection:"This activity helped me understand how variables work in memory, not just in code. By tracing step-by-step, I realized how values change and how references point to different data. It made me more careful when reading programs because even small changes can affect the whole output."
+  },
+
+  {
+    title:"Operators",
+   subs:[
+  {
+    name:"Bitwise Operator",
+    code:["images/act2_bitwise_code.jpg"],
+    output:["images/act2_bitwise_output.jpg"]
+  },
+  {
+    name:"Ternary Operator",
+    code:["images/act2_ternary_code.jpg"],
+    output:["images/act2_ternary_output.jpg"]
+  },
+  {
+    name:"Assignment Operator",
+    code:["images/act2_assignment_code.jpg"],
+    output:["images/act2_assignment_output.jpg"]
+  },
+  {
+    name:"Operator",
+    code:["images/act2_operator_code.jpg"],
+    output:["images/act2_operator_output.jpg"]
+  }
+],
+    reflection:"This activity helped me understand how different operators work and how they affect the result of a program. By creating separate programs and combining multiple operators, I learned how expressions are evaluated and why order of operations matters. It also trained me to avoid hardcoding and instead rely on proper computations. Overall, this activity improved both my logic and how I write cleaner and more efficient code."
+  },
+
+  {
+    title:"Basic ATM Machine",
+    subs:[
+      {
+        name:"Code",
+        code:["images/a3_code1.jpg","images/a3_code2.jpg","images/a3_code3.jpg"],
+        output:[]
+      },
+      {
+        name:"Sample Output",
+        code:[],
+        output:["images/a3_out1.jpg", "images/a3_out2.jpg"]
+      }
+    ],
+    reflection:"This activity helped me understand how real programs handle user input and decisions. Using switch, loops, and conditions together made the program more interactive. It also showed me how important validation is, especially when dealing with transactions."
+  },
+
+  {
+    title:"Student Enrollment Assessment",
+    subs:[
+      {
+        name:"Code",
+        code:["images/act4_code1.jpg","images/act4_code2.jpg","images/act4_code3.jpg","images/act4_code4.jpg", "images/act4_code5.jpg"],
+        output:[]
+      },
+      {
+        name:"Sample Output",
+        code:[],
+        output:["images/act4_out1.jpg","images/act4_out2.jpg"]
+      }
+    ],
+    reflection:"This activity helped me practice combining different concepts like nested if statements and switch cases in one program. It made me realize how programs can simulate real-life decision systems. I also learned the importance of organizing conditions properly to avoid errors."
+  },
+
+  {
+    title:"Personal Expense Tracker",
+    subs:[
+      {
+        name:"Code",
+        code:["images/a5_c1.jpg","images/a5_c2.jpg","images/a5_c3.jpg","images/a5_c4.jpg","images/a5_c5.jpg"],
+        output:[]
+      },
+      {
+        name:"Sample Output",
+        code:[],
+        output:["images/a5_o1.jpg","images/a5_o2.jpg"]
+      }
+    ],
+    reflection:"This activity helped me understand how methods work and why they are important in organizing code. Breaking the program into smaller functions made it easier to manage and understand. It also showed how programming can be applied to real-life situations like budgeting."
+  }
+
+]
+
+};
+
+let current;
+
+function openCategory(c){
+  current=c;
+  let html=`<h3>${c.toUpperCase()}</h3>`;
+  data[c].forEach((x,i)=>{
+    html+=`<div class='item' onclick='openItem(${i})'>${x.title}</div>`;
+  });
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('modal').style.display='flex';
+}
+
+
+function openItem(i){
+  const item=data[current][i];
+  let html=`<h3>${item.title}</h3>`;
+
+  // IF has sub-items
+  if(item.subs){
+    item.subs.forEach((s,si)=>{
+      html+=`<div class='item' onclick='openSub(${i},${si})'>${s.name}</div>`;
+    });
+
+    // reflection for items WITH subs
+    html+=`<div class='reflection'><b>Reflection:</b><br>${item.reflection}</div>`;
+  } 
+  else {
+    if(item.images){
+      item.images.forEach(img=>{
+        html+=`<div class='img-box'><img src='${img}' onclick="openImg('${img}')"></div>`;
+      });
+    }
+
+    // reflection for normal items
+    html+=`<div class='reflection'><b>Reflection:</b><br>${item.reflection}</div>`;
+  }
+
+  html+=`<div class='back' onclick="openCategory('${current}')">← Back</div>`;
+
+  document.getElementById('modalBody').innerHTML=html;
+}
+
+function openImg(src){
+  document.getElementById('imgModal').style.display='flex';
+  document.getElementById('imgPreview').src=src;
+}
+
+function closeImg(){
+  document.getElementById('imgModal').style.display='none';
+}
+
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+}
+
+function openSub(i,si){
+  const item=data[current][i];
+  const sub=item.subs[si];
+
+  let html=`<h3>${item.title} - ${sub.name}</h3>`;
+
+  if(sub.code.length){
+    html+=`<div class='sub-title'>Code</div>`;
+    sub.code.forEach(c=>{
+      html+=`<div class='img-box'><img src='${c}' onclick="openImg('${c}')"></div>`;
+    });
+  }
+
+  if(sub.output.length){
+    html+=`<div class='sub-title'>Sample Output</div>`;
+    sub.output.forEach(o=>{
+      html+=`<div class='img-box'><img src='${o}' onclick="openImg('${o}')"></div>`;
+    });
+  }
+
+  html+=`<div class='reflection'><b>Reflection:</b><br>${item.reflection}</div>`;
+  html+=`<div class='back' onclick="openItem(${i})">← Back</div>`;
+
+  document.getElementById('modalBody').innerHTML=html;
+}
+</script></body>
+</html>
